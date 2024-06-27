@@ -103,7 +103,7 @@ def save_as_docx(minutes, filename):
         doc.add_paragraph()
     doc.save(filename)
 
-audio_file_path = "EarningsCall.wav"
+audio_file_path = "EarningsCall.mp3"
 transcription = transcribe_audio(audio_file_path)
 minutes = meeting_minutes(transcription)
 print(minutes)
