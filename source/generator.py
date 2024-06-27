@@ -8,7 +8,7 @@ def transcribe_audio(audio_file_path):
         transcription = client.audio.transcriptions.create(
             model="whisper-1",
             file=audio_file)
-    return transcription['text']
+    return transcription.text
 
 def meeting_minutes(transcription):
     abstract_summary = abstract_summary_extraction(transcription)
@@ -37,7 +37,7 @@ def abstract_summary_extraction(transcription):
             }
         ]
     )
-    return completion.choices[0].message.content
+    return response.choices[0].message.content
 
 
 def key_points_extraction(transcription):
@@ -55,7 +55,7 @@ def key_points_extraction(transcription):
             }
         ]
     )
-    return completion.choices[0].message.content
+    return response.choices[0].message.content
 
 
 def action_item_extraction(transcription):
@@ -73,7 +73,7 @@ def action_item_extraction(transcription):
             }
         ]
     )
-    return completion.choices[0].message.content
+    return response.choices[0].message.content
 
 def sentiment_analysis(transcription):
     response = client.chat.completions.create(
@@ -90,7 +90,7 @@ def sentiment_analysis(transcription):
             }
         ]
     )
-    return completion.choices[0].message.content
+    return response.choices[0].message.content
 
 def save_as_docx(minutes, filename):
     doc = Document()
@@ -103,7 +103,7 @@ def save_as_docx(minutes, filename):
         doc.add_paragraph()
     doc.save(filename)
 
-audio_file_path = "EarningsCall.wav"
+audio_file_path = "EarningsCall.mp3"
 transcription = transcribe_audio(audio_file_path)
 minutes = meeting_minutes(transcription)
 print(minutes)
